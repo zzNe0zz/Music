@@ -5,7 +5,7 @@ import { useState,useEffect } from 'react';
 function Footer(props) {
   const data = useContext(Context);
   const [mainData,setMainData] = useState([])
-
+ 
   let count = 0
     function getData(){
       let dataClone =  data.filter(function(value){
@@ -13,35 +13,42 @@ function Footer(props) {
       })
       setMainData(dataClone)
     } 
-    function setTime (){
-
+    function pauseSong (){
       const auDio = document.querySelector("audio")
-   auDio.ontimeupdate = function(){
+      auDio.pause()
+      auDio.onpause=function(){
+        document.querySelector(".play").classList.remove("playbnt")
+      document.querySelector(".pause").classList.add("playbnt")
+      }
+    }
+    
+   function playSong (){
     const auDio = document.querySelector("audio")
-    let timePlay = auDio.currentTime 
-    let time =  auDio.duration ;
-    let setTime =( timePlay / time) * 100
-    document.querySelector(".range-time").value =  setTime
- if(timePlay === time){
-  nextSong()
- }
-  }
-
-}
-function changeTimePlaySong (){
-  //tua
-  let timeRender = document.querySelector(".range-time").value
+    auDio.play()
+    auDio.onplay = function (){
+      document.querySelector(".play").classList.add("playbnt")
+      document.querySelector(".pause").classList.remove("playbnt")
+      conTrolTime ()
+    }
+   }
+  
+   function conTrolTime (){
+    const auDio = document.querySelector("audio")
+    auDio.ontimeupdate = function(){
+      let currentTime = auDio.currentTime
+      let duration = auDio.duration
+      let time = (currentTime / duration)*100
+      document.querySelector(".range-time").value = time
+    }
+  
+   }
+function changeTimePlay (){
   const auDio = document.querySelector("audio")
- let  seeTime = ( parseInt(timeRender) * auDio.duration)/100
-auDio.currentTime = seeTime
+  const time = document.querySelector(".range-time").value
+  auDio.currentTime =( time*auDio.duration)/100
+  playSong ()
+  console.log( auDio.currentTime);
 }
-function playSong (){
- //play
-  let auDio= document.querySelector("audio");
-  auDio.play()
-  setTime ()
-}
-
 function changeVolum (){
   //am luong
   let volum = document.querySelector("#volum").value
@@ -62,7 +69,8 @@ function muTe (){
 }
 
 function nextSong (){
-  //chuyen bai
+ 
+  const auDio = document.querySelector("audio")
 let index = "" 
  let id = ""
  let cloneData = mainData
@@ -79,11 +87,15 @@ let index = ""
    else{
     setMainData([data[0]])
    }
-
+ auDio.onpause = function (){
+  document.querySelector(".range-time").value = 0
+  playSong ()
+ }
 }
 
-function pretSong(){
+function preSong(){
     //chuyen bai
+    const auDio = document.querySelector("audio")
   let index = "" 
  let id = ""
  let cloneData = mainData
@@ -101,6 +113,10 @@ function pretSong(){
    else{
     setMainData([data[index]])
    }
+   auDio.onpause = function (){
+    document.querySelector(".range-time").value = 0
+    playSong ()
+}
 }
 useEffect(() => {
   getData()
@@ -122,14 +138,14 @@ useEffect(() => {
                         <div className='footer-audio-bw' >
                                 <div className='icon-footer'>
                                 <p>
-                                <span onClick={pretSong}><StepBackwardOutlined /></span> <span onClick={playSong} className="play"><PlayCircleFilled /></span> <span onClick={()=>{document.querySelector(".audio").pause()}}><PauseCircleFilled /></span>  <span onClick={nextSong}> <StepForwardOutlined /></span>
+                                <span onClick={preSong}><StepBackwardOutlined /></span> <span onClick={playSong} className="play"><PlayCircleFilled /></span> <span className='pause playbnt' onClick={pauseSong}><PauseCircleFilled /></span>  <span onClick={nextSong}> <StepForwardOutlined /></span>
                                  <span onClick={()=>{ document.querySelector(".audio").loop=true}}><RollbackOutlined /></span>
                                 </p>
                                 </div>
                                <div className='footer-audio-control'>
                                      <audio src={value.src}  className='audio' ></audio>
                                       <div style={{marginTop:"5px"}} >
-                                        <input type="range"  className='range-time' defaultValue={0} onChange={changeTimePlaySong}/>
+                                        <input type="range"  className='range-time' defaultValue={0} onChange={changeTimePlay} />
                                          
                                       </div>
                                </div>
