@@ -9,8 +9,6 @@ function Footer(props) {
   const [playPause , setPlayPause] = useState(false)
  const muTe = document.querySelector(".mute")
  const unMute = document.querySelector(".unmute")
- const [duRation,setDuRation] = useState()
- const [ currentTimevalue , setCurrenTimevalue] = useState()
  const rangeTime = document.querySelector(".range-time")
  const play =  document.querySelector(".play")
  const pause = document.querySelector(".pause")
@@ -25,7 +23,6 @@ function Footer(props) {
       else if(!auDio.paused){
         pause.click()
         setMainData(dataClone[0])
-        // play.click()
       }
       auDio.ondurationchange = function (){  
         play.click()
@@ -133,11 +130,11 @@ auDio.ondurationchange = function (){
           }
   }
   function control (){
-    if(playPause == false){
+    if(playPause === false){
       document.querySelector(".play").classList.add("playbnt")
       document.querySelector(".pause").classList.remove("playbnt")
     }
-    else if (playPause == true){
+    else if (playPause === true){
       document.querySelector(".play").classList.remove("playbnt")
       document.querySelector(".pause").classList.add("playbnt")
     }
