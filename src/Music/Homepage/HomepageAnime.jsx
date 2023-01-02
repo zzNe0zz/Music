@@ -11,7 +11,9 @@ function HomepageAnime() {
   const[song,setSong]=useState("")
   function getSong (value){
     setSong(value);
+      document.querySelector(".footer-homePage").classList.add("show")
   }
+
   return (
     <Context.Provider value={data}>
     <div className='HomepageAnime'>

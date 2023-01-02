@@ -28,9 +28,11 @@ function Conten(props) {
                  <div>
                       <h4>{value.name}</h4>
                      {
-                      value.singer.map(function(value){
+                      value.singer.map(function(value,id){
                         return(
-                          <p >{value}</p>
+                         
+                          <p key={id+1}>{value}</p>
+                         
                         )
                       })
                      }

@@ -119,8 +119,13 @@
     padding: 8px 16px;
     
 }
+.footer-homePage{
+    display: none;
+}
+.show{
+    display: block;
+}
 .footer-audio{
-  display: none;
     width: 100%;
     display: grid;
     grid-template-columns: 30% 60% 10% ;
