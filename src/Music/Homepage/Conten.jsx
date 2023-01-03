@@ -24,7 +24,7 @@ function Conten(props) {
             BigData.map(function(value,index){
              return(
            <div className='card-Conten'  onClick={()=>{clickSong(value)}} key={value.id}>
-                  <img src={value.thum?value.thum:`https://free.vector6.com/wp-content/uploads/2020/04/Vector-am-nhac-oiefkw024-300x300.jpg`}/>
+                  <img src={value.thum ? value.thum:"https://free.vector6.com/wp-content/uploads/2020/04/Vector-am-nhac-oiefkw024-300x300.jpg"} alt=""/>
                  <div>
                       <h4>{value.name}</h4>
                      {

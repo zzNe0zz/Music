@@ -9,9 +9,14 @@ import data from "../../Data/Data"
 import { useState } from 'react'
 function HomepageAnime() {
   const[song,setSong]=useState("")
+  const[dataSong , setDataSong] = useState()
   function getSong (value){
     setSong(value);
+    let dataclone = data.filter(function(value){
+      return value.name === value
+    })
       document.querySelector(".footer-homePage").classList.add("show")
+  setDataSong(dataclone)
   }
 
   return (
@@ -23,7 +28,7 @@ function HomepageAnime() {
         <Conten getSong={getSong} ></Conten>
        </div>
        <div className='footer-homePage'>
-       <Footer song = {song}></Footer>
+       <Footer song = {song} dataSong = {dataSong}></Footer>
        </div>
     </div>
     </Context.Provider>

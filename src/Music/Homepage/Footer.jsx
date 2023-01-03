@@ -2,6 +2,7 @@ import React,{useContext} from 'react'
 import Context from '../../API/ContexCreat'
 import {StepForwardOutlined,StepBackwardOutlined ,PlayCircleFilled,PauseCircleFilled,SoundFilled,RollbackOutlined ,UndoOutlined} from "@ant-design/icons"
 import { useState,useEffect } from 'react';
+import { useCallback } from 'react';
 function Footer(props) {
   const data = useContext(Context);
   const [mainData,setMainData] = useState(data[0])
@@ -12,8 +13,9 @@ function Footer(props) {
  const rangeTime = document.querySelector(".range-time")
  const play =  document.querySelector(".play")
  const pause = document.querySelector(".pause")
-    function getData(){
-     if(props.song){
+const getData = useCallback(function (){
+  console.log(mainData);
+if(props.song){
       let dataClone =  data.filter(function(value){
         return value.name === props.song
       })
@@ -27,9 +29,10 @@ function Footer(props) {
       auDio.ondurationchange = function (){  
         play.click()
       }
-      console.log(auDio.paused);
-     }
-    } 
+}
+
+
+} ,[mainData,auDio,pause,play,props.song,data])
    
   function playSong (){
     setPlayPause(true)
@@ -140,9 +143,8 @@ auDio.ondurationchange = function (){
     }
   }
 useEffect(() => {
-  getData()
- 
-}, [props.song])
+ getData()
+}, [props.song,getData]);
 
   return (
   <>
