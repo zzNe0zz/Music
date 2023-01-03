@@ -14,7 +14,6 @@ function Footer(props) {
  const play =  document.querySelector(".play")
  const pause = document.querySelector(".pause")
 const getData = useCallback(function (){
-  console.log(mainData);
 if(props.song){
       let dataClone =  data.filter(function(value){
         return value.name === props.song
@@ -30,9 +29,7 @@ if(props.song){
         play.click()
       }
 }
-
-
-} ,[mainData,auDio,pause,play,props.song,data])
+} ,[auDio,pause,play,props.song,data])
    
   function playSong (){
     setPlayPause(true)
@@ -107,6 +104,7 @@ else if (!auDio.paused){
 auDio.ondurationchange = function (){  
   play.click()
 }
+console.log(mainData);
   }
   function preSong (){
         
@@ -158,7 +156,7 @@ useEffect(() => {
                         </div>
                         <div className='footer-audio-bw' >
                                 <div className='icon-footer'>
-                                <p>
+                                <p className='hover'>
                                 <span onClick={preSong}><StepBackwardOutlined /></span> <span onClick={playSong} className="play"><PlayCircleFilled /></span> <span className='pause playbnt ' onClick={pauseSong} ><PauseCircleFilled /></span>  <span onClick={nextSong} className="next"> <StepForwardOutlined /></span>
                                  <span onClick={()=>{ document.querySelector(".audio").loop=true}}><RollbackOutlined /></span> <span onClick={()=>{ document.querySelector(".audio").loop=false}}><UndoOutlined /></span>
                                 </p>

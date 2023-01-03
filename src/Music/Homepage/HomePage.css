@@ -193,3 +193,9 @@
 .playbnt{
     display: none;
 }
+.hover span:hover{
+    cursor: pointer;
+}
+.footer-audio input:hover{
+    cursor: pointer;
+}
